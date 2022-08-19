@@ -28,7 +28,26 @@ sudo apt-get install docker-ce=5:20.10.17~3-0~ubuntu-jammy docker-ce-cli=5:20.10
 printf "😂😂😂😂 ${RED} Testing Docker 😂😂😂😂\n${NC}"
 sudo docker run hello-world
 printf "😂😂😂😂 ${RED} Installing Docker-Machine 😂😂😂😂\n${NC}"
-curl -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
-    chmod +x /tmp/docker-machine &&
-    sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
-
+# curl -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+    # chmod +x /tmp/docker-machine &&
+    # sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+printf "😂😂😂😂 ${RED} Installing Vault 😂😂😂😂\n${NC}"
+wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install vault
+printf "😂😂😂😂 ${RED} Installing slack 😂😂😂😂\n${NC}"
+sudo snap install slack
+printf "😂😂😂😂 ${RED} Installing discord 😂😂😂😂\n${NC}"
+sudo snap install discord
+printf "😂😂😂😂 ${RED} Installing GCM 😂😂😂😂\n${NC}"
+# wget "https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.785/gcm-linux_amd64.2.0.785.deb" -O /tmp/gcmcore.deb
+# sudo dpkg -i /tmp/gcmcore.deb
+# git-credential-manager-core configure
+printf "😂😂😂😂 ${RED} Installing 1password 😂😂😂😂\n${NC}"
+curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
+sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+ sudo apt update && sudo apt install 1password
